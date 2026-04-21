@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Viraj Gambhir — Cybersecurity Resume</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Lato:wght@300;400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg-deep:      #080c14;
+    --bg-card:      #0d1320;
+    --bg-sidebar:   #0a0f1c;
+    --accent:       #00d4ff;
+    --accent-dim:   #0096b8;
+    --accent-glow:  rgba(0,212,255,0.18);
+    --gold:         #e8c46a;
+    --text-primary: #edf2f7;
+    --text-muted:   #8fa3bb;
+    --border:       rgba(0,212,255,0.18);
+    --sidebar-w:    230px;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    min-height: 100vh;
+  }
+
+  /* ─── PRINT / A4 WRAPPER ─────────────────────────────── */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 32px auto;
+    background: var(--bg-deep);
+    display: flex;
+    box-shadow: 0 0 60px rgba(0,212,255,0.10), 0 0 120px rgba(0,0,0,0.8);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* subtle circuit-board top accent line */
+  .page::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--gold), var(--accent), transparent);
+  }
+
+  /* ─── SIDEBAR ────────────────────────────────────────── */
+  .sidebar {
+    width: var(--sidebar-w);
+    min-width: var(--sidebar-w);
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border);
+    padding: 36px 20px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    position: relative;
+  }
+
+  /* faint dot-grid texture on sidebar */
+  .sidebar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(0,212,255,0.07) 1px, transparent 1px);
+    background-size: 18px 18px;
+    pointer-events: none;
+  }
+
+  /* avatar / monogram */
+  .avatar-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .avatar {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    border: 2.5px solid var(--accent);
+    box-shadow: 0 0 22px var(--accent-glow);
+    background: linear-gradient(135deg, #0d2030 0%, #0a3040 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 2px;
+  }
+
+  .sidebar-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  .sidebar-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--accent);
+    text-align: center;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    border-radius: 20px;
+    background: var(--accent-glow);
+  }
+
+  /* sidebar section */
+  .s-section { display: flex; flex-direction: column; gap: 10px; }
+
+  .s-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* contact items */
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .contact-label {
+    font-size: 0.58rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .contact-val {
+    font-size: 0.68rem;
+    color: var(--text-primary);
+    word-break: break-all;
+    font-family: 'Share Tech Mono', monospace;
+  }
+  .contact-val a { color: var(--accent); text-decoration: none; }
+
+  /* skill bars */
+  .skill-item { display: flex; flex-direction: column; gap: 4px; }
+  .skill-name-row { display: flex; justify-content: space-between; align-items: center; }
+  .skill-name { font-size: 0.68rem; color: var(--text-primary); }
+  .skill-pct  { font-family: 'Share Tech Mono', monospace; font-size: 0.58rem; color: var(--accent); }
+  .skill-bar  { height: 3px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+  .skill-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+    box-shadow: 0 0 6px var(--accent-glow);
+  }
+
+  /* tag pills */
+  .tag-group { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tag {
+    font-size: 0.6rem;
+    padding: 3px 8px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    background: rgba(0,212,255,0.05);
+    font-family: 'Share Tech Mono', monospace;
+    letter-spacing: 0.5px;
+  }
+
+  /* cert card */
+  .cert-card {
+    background: linear-gradient(135deg, rgba(0,212,255,0.07), rgba(232,196,106,0.05));
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+  }
+  .cert-name { font-size: 0.68rem; font-weight: 700; color: var(--gold); line-height: 1.4; }
+  .cert-sub  { font-size: 0.6rem; color: var(--text-muted); margin-top: 2px; }
+
+  /* ─── MAIN CONTENT ───────────────────────────────────── */
+  .main {
+    flex: 1;
+    padding: 36px 30px 36px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    overflow: hidden;
+  }
+
+  /* header */
+  .header { border-bottom: 1px solid var(--border); padding-bottom: 18px; }
+  .header-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    line-height: 1;
+    color: var(--text-primary);
+  }
+  .header-name span { color: var(--accent); }
+  .header-role {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 5px;
+  }
+  .header-tagline {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+    font-style: italic;
+    letter-spacing: 0.3px;
+  }
+
+  /* section */
+  .section { display: flex; flex-direction: column; gap: 12px; }
+  .section-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+
+  /* summary */
+  .summary-text {
+    font-size: 0.78rem;
+    line-height: 1.75;
+    color: var(--text-primary);
+    border-left: 2px solid var(--accent);
+    padding-left: 14px;
+    background: rgba(0,212,255,0.03);
+    padding: 12px 14px;
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* experience / project card */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--accent), var(--accent-dim));
+  }
+
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 4px; }
+  .card-title  { font-family: 'Rajdhani', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text-primary); letter-spacing: 0.5px; }
+  .card-sub    { font-size: 0.7rem; color: var(--accent); font-weight: 600; margin-top: 1px; }
+  .card-date   { font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; color: var(--text-muted); white-space: nowrap; padding: 2px 8px; border: 1px solid var(--border); border-radius: 20px; }
+
+  .card ul { margin-top: 8px; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .card ul li {
+    font-size: 0.73rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding-left: 14px;
+    position: relative;
+  }
+  .card ul li::before {
+    content: '›';
+    position: absolute; left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .card-stack { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+  .stack-pill {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.58rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+    border: 1px solid rgba(0,212,255,0.25);
+    color: var(--accent);
+    background: rgba(0,212,255,0.06);
+  }
+
+  /* education card */
+  .edu-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  .edu-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--gold), #c49a3a);
+  }
+  .edu-degree { font-family: 'Rajdhani', sans-serif; font-size: 0.92rem; font-weight: 700; color: var(--text-primary); }
+  .edu-uni    { font-size: 0.72rem; color: var(--accent); margin-top: 2px; }
+  .edu-course { font-size: 0.65rem; color: var(--text-muted); margin-top: 3px; }
+  .edu-meta   { text-align: right; }
+  .cgpa-badge {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .cgpa-label { font-size: 0.58rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+  .edu-year   { font-family: 'Share Tech Mono', monospace; font-size: 0.62rem; color: var(--text-muted); margin-top: 4px; }
+
+  /* ─── PRINT STYLES ───────────────────────────────────── */
+  @media print {
+    body { background: #080c14; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { margin: 0; box-shadow: none; border: none; width: 100%; min-height: 100vh; }
+  }
+
+  @media screen and (max-width: 750px) {
+    .page { width: 100%; flex-direction: column; margin: 0; }
+    .sidebar { width: 100%; min-width: unset; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ═══════════════ SIDEBAR ═══════════════ -->
+  <aside class="sidebar">
+
+    <!-- avatar -->
+    <div class="avatar-wrap">
+      <div class="avatar">VG</div>
+      <div class="sidebar-name">VIRAJ GAMBHIR</div>
+      <div class="sidebar-tag">&#128274; CYBERSECURITY</div>
+    </div>
+
+    <!-- contact -->
+    <div class="s-section">
+      <div class="s-title">Contact</div>
+
+      <div class="contact-item">
+        <span class="contact-label">Phone</span>
+        <span class="contact-val">+91 9084970468</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Email</span>
+        <span class="contact-val"><a href="mailto:virajgambhir1215@gmail.com">virajgambhir1215<br>@gmail.com</a></span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">LinkedIn</span>
+        <span class="contact-val"><a href="https://www.linkedin.com/in/viraj-gambhir-09b7aa313/" target="_blank">viraj-gambhir</a></span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">GitHub</span>
+        <span class="contact-val"><a href="https://github.com/virajgambhir1215-hub" target="_blank">virajgambhir1215-hub</a></span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Location</span>
+        <span class="contact-val">Meerut, India</span>
+      </div>
+    </div>
+
+    <!-- core skills -->
+    <div class="s-section">
+      <div class="s-title">Core Skills</div>
+      <div class="skill-item">
+        <div class="skill-name-row"><span class="skill-name">Ethical Hacking</span><span class="skill-pct">78%</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name-row"><span class="skill-name">Kali Linux</span><span class="skill-pct">75%</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name-row"><span class="skill-name">Network Security</span><span class="skill-pct">70%</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name-row"><span class="skill-name">Java</span><span class="skill-pct">72%</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name-row"><span class="skill-name">C Programming</span><span class="skill-pct">68%</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:68%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name-row"><span class="skill-name">Cryptography</span><span class="skill-pct">65%</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
+      </div>
+    </div>
+
+    <!-- tools -->
+    <div class="s-section">
+      <div class="s-title">Tools & Platforms</div>
+      <div class="tag-group">
+        <span class="tag">Kali Linux</span>
+        <span class="tag">Arduino IDE</span>
+        <span class="tag">ESP32</span>
+        <span class="tag">GitHub</span>
+        <span class="tag">Linux CLI</span>
+        <span class="tag">RFID RC522</span>
+        <span class="tag">Wi-Fi Protocols</span>
+      </div>
+    </div>
+
+    <!-- soft skills -->
+    <div class="s-section">
+      <div class="s-title">Soft Skills</div>
+      <div class="tag-group">
+        <span class="tag">Analytical Thinking</span>
+        <span class="tag">Problem Solving</span>
+        <span class="tag">Adaptability</span>
+        <span class="tag">Curiosity-Driven</span>
+        <span class="tag">Team Collaboration</span>
+      </div>
+    </div>
+
+    <!-- certification -->
+    <div class="s-section">
+      <div class="s-title">Certification</div>
+      <div class="cert-card">
+        <div class="cert-name">Coincent — Cybersecurity &amp; Ethical Hacking</div>
+        <div class="cert-sub">Phase 1 Certified &nbsp;|&nbsp; 3-Month Program</div>
+        <div class="cert-sub" style="color:var(--accent);margin-top:4px;">✓ Verified Certificate</div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ═══════════════ MAIN ═══════════════ -->
+  <main class="main">
+
+    <!-- header -->
+    <header class="header">
+      <div class="header-name">VIRAJ <span>GAMBHIR</span></div>
+      <div class="header-role">// Aspiring Cybersecurity Analyst &nbsp;·&nbsp; Ethical Hacker</div>
+      <div class="header-tagline">"Breaking systems to build better defenses — one vulnerability at a time."</div>
+    </header>
+
+    <!-- professional summary -->
+    <section class="section">
+      <div class="section-title">Professional Summary</div>
+      <div class="summary-text">
+        Cybersecurity enthusiast and B.Tech Computer Science undergraduate at Gautam Buddha University (CGPA: 8.75) with a deep-rooted passion for understanding how systems are built — and how they can be broken. Certified in Cybersecurity &amp; Ethical Hacking through the Coincent 3-month program, with hands-on experience building security-aware embedded systems and secure communication tools. Driven by the ever-evolving landscape of cyber threats and committed to growing into a skilled Cybersecurity Analyst or Penetration Tester who helps organizations build resilient, attack-proof infrastructures.
+      </div>
+    </section>
+
+    <!-- projects -->
+    <section class="section">
+      <div class="section-title">Projects</div>
+
+      <!-- project 1 -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">RFID-Based Smart Attendance System</div>
+            <div class="card-sub">Hardware Security &amp; Embedded Systems</div>
+          </div>
+          <div class="card-date">2024</div>
+        </div>
+        <ul>
+          <li>Engineered an automated attendance management system using Arduino Uno and RFID RC522 module, eliminating manual attendance processes through contactless card authentication.</li>
+          <li>Implemented unique RFID tag-based identity verification, ensuring secure and tamper-resistant access logging for authorized individuals only.</li>
+          <li>Demonstrated understanding of physical security, access control principles, and hardware-level authentication — core pillars of cybersecurity.</li>
+          <li>Designed the system architecture in C, optimizing read latency and minimizing false authentication events.</li>
+        </ul>
+        <div class="card-stack">
+          <span class="stack-pill">Arduino Uno</span>
+          <span class="stack-pill">RFID RC522</span>
+          <span class="stack-pill">C</span>
+          <span class="stack-pill">Arduino IDE</span>
+          <span class="stack-pill">Access Control</span>
+          <span class="stack-pill">Embedded Systems</span>
+        </div>
+      </div>
+
+      <!-- project 2 -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Ghost Chat — Secure Peer-to-Peer Messenger</div>
+            <div class="card-sub">Network Security &amp; Encrypted Communication</div>
+          </div>
+          <div class="card-date">2024</div>
+        </div>
+        <ul>
+          <li>Developed a covert, offline peer-to-peer chat application using ESP32 microcontrollers, enabling anonymous, infrastructure-independent communication over local Wi-Fi networks.</li>
+          <li>Designed the system to operate without reliance on external servers, significantly reducing attack surfaces and third-party interception risks.</li>
+          <li>Leveraged Kali Linux as the development and testing environment to validate communication integrity and simulate adversarial network conditions.</li>
+          <li>Applied core concepts of network security, anonymity, and protocol-level communication — demonstrating practical cybersecurity mindset in product design.</li>
+        </ul>
+        <div class="card-stack">
+          <span class="stack-pill">ESP32</span>
+          <span class="stack-pill">Kali Linux</span>
+          <span class="stack-pill">Java</span>
+          <span class="stack-pill">Wi-Fi Protocols</span>
+          <span class="stack-pill">P2P Networking</span>
+          <span class="stack-pill">Secure Comms</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- certifications & training -->
+    <section class="section">
+      <div class="section-title">Certification &amp; Training</div>
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Coincent — Cybersecurity &amp; Ethical Hacking Program</div>
+            <div class="card-sub">Phase 1 Certified &nbsp;|&nbsp; 3-Month Intensive Program</div>
+          </div>
+          <div class="card-date">2024</div>
+        </div>
+        <ul>
+          <li>Completed a structured 3-month cybersecurity training program covering foundational to intermediate concepts in ethical hacking and information security.</li>
+          <li>Gained practical exposure to penetration testing methodology, vulnerability identification, and security assessment fundamentals.</li>
+          <li>Awarded Phase 1 Certification upon successfully demonstrating core competencies in cybersecurity principles and applied ethical hacking techniques.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- education -->
+    <section class="section">
+      <div class="section-title">Education</div>
+      <div class="edu-card">
+        <div>
+          <div class="edu-degree">Bachelor of Technology — Computer Science &amp; Engineering</div>
+          <div class="edu-uni">Gautam Buddha University, Greater Noida, India</div>
+          <div class="edu-course">Relevant Coursework: Cryptography · Network Security · Data Structures · Operating Systems</div>
+        </div>
+        <div class="edu-meta">
+          <div class="cgpa-badge">8.75</div>
+          <div class="cgpa-label">CGPA</div>
+          <div class="edu-year">2025 — 2029 (Expected)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- areas of interest -->
+    <section class="section">
+      <div class="section-title">Areas of Interest</div>
+      <div class="tag-group" style="gap:7px;">
+        <span class="tag" style="font-size:0.65rem;padding:5px 12px;">Penetration Testing</span>
+        <span class="tag" style="font-size:0.65rem;padding:5px 12px;">Vulnerability Assessment</span>
+        <span class="tag" style="font-size:0.65rem;padding:5px 12px;">Network Security</span>
+        <span class="tag" style="font-size:0.65rem;padding:5px 12px;">Secure System Design</span>
+        <span class="tag" style="font-size:0.65rem;padding:5px 12px;">Ethical Hacking</span>
+        <span class="tag" style="font-size:0.65rem;padding:5px 12px;">Cryptography</span>
+        <span class="tag" style="font-size:0.65rem;padding:5px 12px;">Embedded Security</span>
+        <span class="tag" style="font-size:0.65rem;padding:5px 12px;">SOC Operations</span>
+      </div>
+    </section>
+
+  </main>
+</div>
+</body>
+</html>
